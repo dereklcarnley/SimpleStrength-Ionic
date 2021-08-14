@@ -1,7 +1,0 @@
-{
-  "name": "SimpleStrength-Ionic",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}

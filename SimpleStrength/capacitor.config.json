@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "SimpleStrength",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

@@ -1,0 +1,7 @@
+{
+  "name": "SimpleStrength",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

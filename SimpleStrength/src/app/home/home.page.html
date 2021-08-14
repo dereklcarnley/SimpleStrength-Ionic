@@ -1,0 +1,99 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Simple Strength
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{Title}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card *ngIf="User.LoggedIn; else notLoggedIn">
+    <ion-card-header>
+      <ion-card-title>Your Profile:</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>Sex: {{User.Sex}}</p>
+      <p>Age: {{User.Age}}</p>
+      <p>Bodyweight: {{User.Bodyweight}}</p>
+      <p>Fitness Level: {{User.FitnessLevel}}</p>
+      <ion-button color="primary" (click)="updateProfile()">Update Profile</ion-button>
+      <ion-button color="danger" (click)="deleteProfile()">Delete Profile</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="User.LoggedIn">
+    <ion-card-header>
+      <ion-card-title>One-Rep Maxes:</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <p>Bench Press: {{User.BenchMax}}</p>
+      <p>Deadlift: {{User.DeadliftMax}}</p>
+      <p>Overhead Press: {{User.OHPMax}}</p>
+      <p>Squat: {{User.SquatMax}}</p>
+      <p>Bent-Over Row: {{User.RowMax}}</p>
+      <ion-button color="primary" (click)="calculateMaxes()">Calculate One-Rep Maxes</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!--not logged in, create profile-->
+  <ng-template #notLoggedIn>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Welcome!</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <p>Before you can start tracking your workouts, you need to create a profile.</p>
+
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
+          <!-- Sex -->
+          <ion-item>
+            <ion-label>Sex</ion-label>
+            <ion-select placeholder="Select One" formControlName="Sex" required>
+              <ion-select-option value="Female">Female</ion-select-option>
+              <ion-select-option value="Male">Male</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Age -->
+          <ion-item lines="full">
+            <ion-label position="floating">Age</ion-label>
+            <ion-input formControlName="Age" type="number" min="14" max="89" required></ion-input>
+          </ion-item>
+
+          <!-- Bodyweight -->
+          <ion-item lines="full">
+            <ion-label position="floating">Bodyweight</ion-label>
+            <ion-input formControlName="Bodyweight" type="number" min="90" max="310" required></ion-input>
+          </ion-item>
+      
+          <!-- Fitness Level -->
+          <ion-item>
+            <ion-label>Fitness Level</ion-label>
+            <ion-select placeholder="Select One" formControlName="FitnessLevel" required>
+              <ion-select-option value="Beginner">Beginner</ion-select-option>
+              <ion-select-option value="Novice">Novice</ion-select-option>
+              <ion-select-option value="Intermediate">Intermediate</ion-select-option>
+              <ion-select-option value="Advanced">Advanced</ion-select-option>
+              <ion-select-option value="Elite">Elite</ion-select-option>
+            </ion-select>
+          </ion-item>
+      
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" color="primary" expand="block">Create Profile</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>
