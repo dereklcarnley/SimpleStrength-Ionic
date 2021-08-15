@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
           SquatMax:null,
           RowMax:null};
 
+  //profile form variables
   profileForm: FormGroup;
   submitted = false;
 
@@ -28,8 +29,8 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
       Sex: ['', [Validators.required]],
-      Age: ['', [Validators.required]],
-      Bodyweight: ['', [Validators.required]],
+      Age: ['', [Validators.required, Validators.min(14),Validators.max(89)]],
+      Bodyweight: ['', [Validators.required, Validators.min(90), Validators.max(310)]],
       FitnessLevel: ['', [Validators.required]]
     })
   }
@@ -40,6 +41,7 @@ export class HomePage implements OnInit {
       console.log('All fields are required.')
       return false;
     } else {
+      console.log("Creating Profile");
       console.log(this.profileForm.value)
       this.User.Sex = this.profileForm.value["Sex"];
       this.User.Age = this.profileForm.value["Age"];
@@ -48,15 +50,10 @@ export class HomePage implements OnInit {
     }
     this.User.LoggedIn = true;
   }
-  
-  createProfile() {
-    console.log("Creating Profile");
-
-    this.User.LoggedIn = true;
-  }
 
   deleteProfile() {
     console.log("Deleting Profile");
+    this.User.Sex, this.User.Age, this.User.Bodyweight, this.User.FitnessLevel = null;
 
     this.User.LoggedIn = false;
   }
