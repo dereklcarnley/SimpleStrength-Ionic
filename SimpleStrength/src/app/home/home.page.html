@@ -34,12 +34,14 @@
     </ion-card-header>
   
     <ion-card-content>
-      <p>Bench Press: {{User.BenchMax}}</p>
-      <p>Deadlift: {{User.DeadliftMax}}</p>
-      <p>Overhead Press: {{User.OHPMax}}</p>
-      <p>Squat: {{User.SquatMax}}</p>
-      <p>Bent-Over Row: {{User.RowMax}}</p>
-      <ion-button color="primary" (click)="calculateMaxes()">Calculate One-Rep Maxes</ion-button>
+      <div *ngIf="User.MaxesSuggested; else suggestMaxButton">
+        <p>Bench Press: {{User.BenchMax}}</p>
+        <p>Deadlift: {{User.DeadliftMax}}</p>
+        <p>Overhead Press: {{User.OHPMax}}</p>
+        <p>Squat: {{User.SquatMax}}</p>
+        <p>Bent-Over Row: {{User.RowMax}}</p>
+      </div>
+      <ion-button id="suggestMaxButton" color="primary" (click)="suggestMaxes()">Suggest One-Rep Maxes</ion-button>
     </ion-card-content>
   </ion-card>
 
