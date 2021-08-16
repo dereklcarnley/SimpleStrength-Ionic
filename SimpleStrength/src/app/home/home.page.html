@@ -19,6 +19,7 @@
     </ion-card-header>
   
     <ion-card-content>
+      <p>You're currently logged in as: <strong>{{User.Name}}</strong></p>
       <p>Sex: {{User.Sex}}</p>
       <p>Age: {{User.Age}}</p>
       <p>Bodyweight: {{User.Bodyweight}}</p>
@@ -42,6 +43,7 @@
         <p>Bent-Over Row: {{User.RowMax}}</p>
       </div>
       <ion-button id="suggestMaxButton" color="primary" (click)="suggestMaxes()">Suggest One-Rep Maxes</ion-button>
+      <ion-button id="setMaxButton" color="secondary" (click)="setMaxes()">Manually Set One-Rep Maxes</ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -58,7 +60,20 @@
     </ion-card>
 
     <div>
-      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="profileForm" (ngSubmit)="createProfile()" novalidate>
+        <!-- Name -->
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input formControlName="Name" type="text" maxlength="20" required></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.Name">
+            <div class="error-message" *ngIf="profileForm.get('Name').hasError(validation.type) && (profileForm.get('Name').dirty || profileForm.get('Name').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+        
         <!-- Sex -->
         <ion-item>
           <ion-label>Sex</ion-label>
@@ -67,18 +82,39 @@
             <ion-select-option value="Male">Male</ion-select-option>
           </ion-select>
         </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.Sex">
+            <div class="error-message" *ngIf="profileForm.get('Sex').hasError(validation.type) && (profileForm.get('Sex').dirty || profileForm.get('Sex').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
 
         <!-- Age -->
         <ion-item>
           <ion-label position="floating">Age</ion-label>
           <ion-input formControlName="Age" type="number" min="14" max="89" required></ion-input>
         </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.Age">
+            <div class="error-message" *ngIf="profileForm.get('Age').hasError(validation.type) && (profileForm.get('Age').dirty || profileForm.get('Age').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
 
         <!-- Bodyweight -->
         <ion-item>
           <ion-label position="floating">Bodyweight</ion-label>
           <ion-input formControlName="Bodyweight" type="number" min="90" max="310" required></ion-input>
         </ion-item><br>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.Bodyweight">
+            <div class="error-message" *ngIf="profileForm.get('Bodyweight').hasError(validation.type) && (profileForm.get('Bodyweight').dirty || profileForm.get('Bodyweight').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
     
         <!-- Fitness Level -->
         <ion-item>
@@ -91,7 +127,10 @@
             <ion-select-option value="Elite">Elite</ion-select-option>
           </ion-select>
         </ion-item>
-    
+        
+        <br>
+
+        <!-- Submit -->
         <ion-row>
           <ion-col>
             <ion-button type="submit" color="primary" expand="block">Create Profile</ion-button>
@@ -99,7 +138,5 @@
         </ion-row>
       </form>
     </div>
-
-    <ion-button color="danger" (click)="testFunction()">Test</ion-button>
   </ng-template>
 </ion-content>
