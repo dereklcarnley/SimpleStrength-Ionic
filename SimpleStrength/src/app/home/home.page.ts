@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-//import * as BenchStandards from "./assets/data/bench-standards.json";
+import * as BenchPressStandards from "./assets/data/bench-standards.json";
 
 @Component({
   selector: 'app-home',
@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
+  BenchPressStandards: string;
 
   //User profile
   User = {LoggedIn: false,
@@ -743,5 +744,10 @@ export class HomePage implements OnInit {
 
         this.User.MaxesSuggested = true;
     };
+  };
+
+    testFunction() {
+        var converted = JSON.parse(this.BenchPressStandards);
+        console.log(converted.Male);
+    };
   }
-}
